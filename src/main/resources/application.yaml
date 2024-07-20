@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: healthcare-doctors
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/healthcare_doctors?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+    username: ${db_username}
+    password: ${db_password}
+  jpa:
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    hibernate:
+      ddl-auto: update
+    sql:
+      init:
+        mode: never
+  server:
+    port: 8081
