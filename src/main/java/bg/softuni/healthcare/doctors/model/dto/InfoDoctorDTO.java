@@ -25,7 +25,7 @@ public class InfoDoctorDTO {
 
     private Integer experience;
 
-    private String addedBy;
+    private String userId;
 
     public String getFullName() {
         StringBuilder sb = new StringBuilder();

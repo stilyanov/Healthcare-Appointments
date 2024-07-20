@@ -33,7 +33,7 @@ public class DoctorEntity {
     private String imageUrl;
 
     @Column(nullable = false)
-    private String city;
+    private String town;
 
     private Long departmentId;
 

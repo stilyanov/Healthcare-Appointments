@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class AllDoctorsDTO {
+public class DoctorDTO {
 
     private Long id;
 

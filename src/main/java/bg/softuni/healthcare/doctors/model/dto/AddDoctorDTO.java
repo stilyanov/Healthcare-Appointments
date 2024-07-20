@@ -41,5 +41,5 @@ public class AddDoctorDTO {
     @Pattern(regexp = "https://.*", message = "Please enter valid image URL!")
     private String imageUrl;
 
-    private Long addedBy;
+    private Long userId;
 }
