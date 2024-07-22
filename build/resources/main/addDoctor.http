@@ -1,0 +1,12 @@
+POST http://localhost:8081/doctors/add
+Content-Type: application/json
+
+{
+  "firstName": "Jorge",
+  "lastName": "Horhe",
+  "town": "Varna",
+  "bio": "blbllblblblblblbllbblblbllblblblblblbllbblblbllblblblblblbllbbl",
+  "experience": 39,
+  "department": "NEUROLOGY",
+  "imageUrl": "https://img.freepik.com/free-photo/doctor-with-white-robe-stethoscope_144627-43879.jpg"
+}

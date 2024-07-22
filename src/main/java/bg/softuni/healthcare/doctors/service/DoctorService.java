@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DoctorService {
 
-    void addDoctor(AddDoctorDTO addDoctorDTO);
+    DoctorDTO addDoctor(AddDoctorDTO addDoctorDTO);
 
     List<DoctorDTO> getAllDoctors();
 

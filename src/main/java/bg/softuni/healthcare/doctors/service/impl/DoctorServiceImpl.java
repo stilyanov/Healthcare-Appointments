@@ -5,7 +5,6 @@ import bg.softuni.healthcare.doctors.model.entity.DoctorEntity;
 import bg.softuni.healthcare.doctors.repository.DoctorRepository;
 import bg.softuni.healthcare.doctors.service.DoctorService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ public class DoctorServiceImpl implements DoctorService {
     private final RestTemplate restTemplate;
 
     @Override
-    public void addDoctor(AddDoctorDTO addDoctorDTO) {
+    public DoctorDTO addDoctor(AddDoctorDTO addDoctorDTO) {
         ResponseEntity<UserDTO> userResponse = restTemplate.getForEntity("http://localhost:8080/users/" + addDoctorDTO.getUserId(), UserDTO.class);
         if (userResponse.getBody() == null) {
             throw new IllegalArgumentException("User not found");
@@ -38,6 +37,7 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setDepartmentId(departmentResponse.getBody().getId());
 
         this.doctorRepository.save(doctor);
+        return null;
     }
 
     @Override

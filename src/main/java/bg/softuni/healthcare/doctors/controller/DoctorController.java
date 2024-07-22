@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -55,9 +56,18 @@ public class DoctorController {
 //    }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> addDoctor(@RequestBody @Valid AddDoctorDTO addDoctorDTO) {
-        doctorService.addDoctor(addDoctorDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<DoctorDTO> addDoctor(@RequestBody @Valid AddDoctorDTO addDoctorDTO) {
+        DoctorDTO doctorDTO = doctorService.addDoctor(addDoctorDTO);
+
+        return ResponseEntity
+                .created(
+                        ServletUriComponentsBuilder
+                                .fromCurrentRequest()
+                                .path("/{id}")
+                                .buildAndExpand(doctorDTO.getId())
+                                .toUri()
+                ).body(doctorDTO);
+
     }
 
 }

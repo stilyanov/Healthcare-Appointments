@@ -11,6 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddDoctorDTO {
 
+    private Long id;
+
     @NotNull(message = "First Name cannot be empty!")
     @Size(min = 3, max = 20, message = "First Name length must be between 3 and 20 characters!")
     private String firstName;
@@ -21,7 +23,7 @@ public class AddDoctorDTO {
 
     @NotNull(message = "City cannot be empty!")
     @Size(min = 3, max = 20, message = "City length must be between 3 and 20 characters!")
-    private String city;
+    private String town;
 
     @NotNull(message = "Bio cannot be empty!")
     @Size(min = 50, max = 1000, message = "Bio length must be between 50 and 400 characters!")
