@@ -1,5 +1,6 @@
 package bg.softuni.healthcare.doctors.model.entity;
 
+import bg.softuni.healthcare.doctors.model.enums.DepartmentEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,8 +36,11 @@ public class DoctorEntity {
     @Column(nullable = false)
     private String town;
 
-    private Long departmentId;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private DepartmentEnum department;
 
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
 }

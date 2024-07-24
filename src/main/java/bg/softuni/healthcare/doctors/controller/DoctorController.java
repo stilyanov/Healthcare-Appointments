@@ -40,20 +40,13 @@ public class DoctorController {
         return ResponseEntity.ok(doctorInfo);
     }
 
-//    @GetMapping("/find")
-//    public ResponseEntity<List<DoctorDTO>> findDoctor(@RequestParam(required = false) String department,
-//                                                      @RequestParam(required = false) String town,
-//                                                      @RequestParam(required = false) String name) {
-//        if (department != null && !department.isEmpty()) {
-//            return ResponseEntity.ok(doctorService.findByDepartment(DepartmentEnum.valueOf(department)));
-//        } else if (town != null && !town.isEmpty()) {
-//            return ResponseEntity.ok(doctorService.findByTown(town));
-//        } else if (name != null && !name.isEmpty()) {
-//            return ResponseEntity.ok(doctorService.findByName(name));
-//        } else {
-//            return ResponseEntity.ok(List.of());
-//        }
-//    }
+    @GetMapping("/find")
+    public ResponseEntity<List<DoctorDTO>> findDoctor(@RequestParam(required = false) String department,
+                                                      @RequestParam(required = false) String town,
+                                                      @RequestParam(required = false) String name) {
+        List<DoctorDTO> doctors = doctorService.findDoctor(department, town, name);
+        return ResponseEntity.ok(doctors);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<DoctorDTO> addDoctor(@RequestBody @Valid AddDoctorDTO addDoctorDTO) {

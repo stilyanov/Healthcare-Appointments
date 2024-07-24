@@ -1,5 +1,8 @@
 package bg.softuni.healthcare.doctors.model.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum DepartmentEnum {
     CARDIOLOGY("Cardiology"),
     DERMATOLOGY("Dermatology"),
@@ -19,7 +22,4 @@ public enum DepartmentEnum {
         this.displayName = name;
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
 }
