@@ -1,4 +1,0 @@
-### GET request to example server
-GET http://localhost:8081/doctors/all/ HTTP/1.1
-Accept: application/json
-###

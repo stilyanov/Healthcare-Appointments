@@ -1,16 +1,18 @@
 package bg.softuni.healthcare.doctors.model.dto;
 
-import bg.softuni.healthcare.doctors.model.enums.DepartmentEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
-public class DepartmentDTO {
+public class FullAppointmentsInfoDTO {
 
     private Long id;
-    private DepartmentEnum name;
+    private Long patientId;
+    private Long doctorId;
+    private String reason;
+    private String time;
 
 }

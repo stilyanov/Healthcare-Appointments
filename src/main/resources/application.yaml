@@ -1,9 +1,9 @@
 spring:
   application:
-    name: healthcare-doctors
+    name: healthcare-appointments
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/healthcare_doctors?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/healthcare_appointments?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
     username: ${db_username}
     password: ${db_password}
   jpa:
