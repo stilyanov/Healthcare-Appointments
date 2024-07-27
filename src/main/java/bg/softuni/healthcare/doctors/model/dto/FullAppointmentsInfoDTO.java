@@ -15,6 +15,6 @@ public class FullAppointmentsInfoDTO {
     private Long doctorId;
     private DepartmentEnum department;
     private String reason;
-    private String time;
+    private String dateTime;
 
 }

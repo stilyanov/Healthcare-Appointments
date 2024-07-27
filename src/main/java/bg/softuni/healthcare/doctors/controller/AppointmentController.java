@@ -1,6 +1,7 @@
 package bg.softuni.healthcare.doctors.controller;
 
 import bg.softuni.healthcare.doctors.model.dto.AddAppointmentDTO;
+import bg.softuni.healthcare.doctors.model.dto.FullAppointmentsInfoDTO;
 import bg.softuni.healthcare.doctors.model.dto.UserAppointmentDTO;
 import bg.softuni.healthcare.doctors.service.AppointmentService;
 import lombok.AllArgsConstructor;
@@ -16,17 +17,17 @@ public class AppointmentController {
 
     private final AppointmentService appointmentService;
 
-    @GetMapping("/all")
+    @GetMapping()
     public ResponseEntity<List<AddAppointmentDTO>> getAllAppointments() {
         return ResponseEntity.ok(
                 appointmentService.getAllAppointments()
         );
     }
 
-    @GetMapping("/all/{patientId}/{doctorId}/{departmentId}")
-    public ResponseEntity<List<UserAppointmentDTO>> getUsersAppointments(@PathVariable Long patientId, @PathVariable Long doctorId, @PathVariable Long departmentId) {
+    @GetMapping("/all")
+    public ResponseEntity<List<FullAppointmentsInfoDTO>> getUsersAppointments() {
         return ResponseEntity.ok(
-                appointmentService.getUsersAppointments()
+                appointmentService.getAllUsersAppointments()
         );
     }
 

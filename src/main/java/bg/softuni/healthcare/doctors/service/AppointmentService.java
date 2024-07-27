@@ -14,11 +14,11 @@ public interface AppointmentService {
 
     List<AddAppointmentDTO> getAllAppointments();
 
-    List<FullAppointmentsInfoDTO> getAllFullAppointmentsInfo();
-
     void deleteAppointment(Long id);
 
     List<UserAppointmentDTO> getUsersAppointments();
+
+    List<FullAppointmentsInfoDTO> getAllUsersAppointments();
 
     List<LocalDateTime> getAvailableAppointmentTimes(Long doctorId, LocalDate date);
 }

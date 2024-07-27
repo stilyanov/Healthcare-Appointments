@@ -24,7 +24,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final ModelMapper modelMapper;
-    private final DateTimeFormatter dateTimeFormatter;
 
     @Override
     public void bookAppointment(AddAppointmentDTO appointmentDTO) {
@@ -46,18 +45,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<AddAppointmentDTO> getAllAppointments() {
         return appointmentRepository.findAll()
                 .stream()
-                .map(appointment -> modelMapper.map(appointment, AddAppointmentDTO.class))
-                .toList();
-    }
-
-    @Override
-    public List<FullAppointmentsInfoDTO> getAllFullAppointmentsInfo() {
-        return appointmentRepository.findAll()
-                .stream()
                 .map(appointment -> {
-                    FullAppointmentsInfoDTO fullAppointmentsInfoDTO = modelMapper.map(appointment, FullAppointmentsInfoDTO.class);
-                    fullAppointmentsInfoDTO.setTime(appointment.getDateTime().format(dateTimeFormatter));
-                    return fullAppointmentsInfoDTO;
+                    AddAppointmentDTO addAppointmentDTO = modelMapper.map(appointment, AddAppointmentDTO.class);
+                    addAppointmentDTO.setDateTime(appointment.getDateTime());
+                    return addAppointmentDTO;
                 })
                 .toList();
     }
@@ -73,8 +64,20 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .stream()
                 .map(appointment -> {
                     UserAppointmentDTO userAppointmentDTO = modelMapper.map(appointment, UserAppointmentDTO.class);
-                    userAppointmentDTO.setDateTime(appointment.getDateTime().format(dateTimeFormatter));
+                    userAppointmentDTO.setDateTime(String.valueOf(appointment.getDateTime()));
                     return userAppointmentDTO;
+                })
+                .toList();
+    }
+
+    @Override
+    public List<FullAppointmentsInfoDTO> getAllUsersAppointments() {
+        return appointmentRepository.findAll()
+                .stream()
+                .map(appointment -> {
+                    FullAppointmentsInfoDTO fullAppointmentsInfoDTO = modelMapper.map(appointment, FullAppointmentsInfoDTO.class);
+                    fullAppointmentsInfoDTO.setDateTime(String.valueOf(appointment.getDateTime()));
+                    return fullAppointmentsInfoDTO;
                 })
                 .toList();
     }

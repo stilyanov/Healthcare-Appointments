@@ -19,9 +19,4 @@ public class AppConfig {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
-    @Bean
-    public DateTimeFormatter dateTimeFormatter() {
-        return DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-    }
 }
