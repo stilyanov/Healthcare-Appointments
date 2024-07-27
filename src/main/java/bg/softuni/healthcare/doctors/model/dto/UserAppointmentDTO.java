@@ -1,5 +1,6 @@
 package bg.softuni.healthcare.doctors.model.dto;
 
+import bg.softuni.healthcare.doctors.model.enums.DepartmentEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import lombok.Setter;
 public class UserAppointmentDTO {
 
     private Long doctorId;
-    private Long departmentId;
-    private String time;
+    private DepartmentEnum department;
+    private String dateTime;
     private String reason;
 }

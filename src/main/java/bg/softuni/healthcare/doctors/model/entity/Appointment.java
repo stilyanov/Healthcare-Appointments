@@ -1,5 +1,6 @@
 package bg.softuni.healthcare.doctors.model.entity;
 
+import bg.softuni.healthcare.doctors.model.enums.DepartmentEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,10 @@ public class Appointment {
 
     @Column(name = "patient_id", nullable = false)
     private Long patientId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "department", nullable = false)
+    private DepartmentEnum department;
 
     private String reason;
 

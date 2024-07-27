@@ -1,5 +1,6 @@
 package bg.softuni.healthcare.doctors.model.dto;
 
+import bg.softuni.healthcare.doctors.model.enums.DepartmentEnum;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AppointmentDTO {
+public class AddAppointmentDTO {
     private Long id;
 
     @NotNull(message = "Time cannot be empty!")
@@ -21,6 +22,12 @@ public class AppointmentDTO {
     @Size(min = 10, max = 500, message = "Reason length must be between 10 and 200 characters!")
     private String reason;
 
+    @NotNull(message = "Doctor ID cannot be empty!")
     private Long doctorId;
+
+    @NotNull(message = "Patient ID cannot be empty!")
     private Long patientId;
+
+    @NotNull(message = "Department cannot be empty!")
+    private DepartmentEnum department;
 }

@@ -1,6 +1,6 @@
 package bg.softuni.healthcare.doctors.service;
 
-import bg.softuni.healthcare.doctors.model.dto.AppointmentDTO;
+import bg.softuni.healthcare.doctors.model.dto.AddAppointmentDTO;
 import bg.softuni.healthcare.doctors.model.dto.FullAppointmentsInfoDTO;
 import bg.softuni.healthcare.doctors.model.dto.UserAppointmentDTO;
 
@@ -10,15 +10,15 @@ import java.util.List;
 
 public interface AppointmentService {
 
-    void bookAppointment(AppointmentDTO appointmentDTO);
+    void bookAppointment(AddAppointmentDTO appointmentDTO);
 
-    List<AppointmentDTO> getAllAppointments();
+    List<AddAppointmentDTO> getAllAppointments();
 
-    List<FullAppointmentsInfoDTO> getAllFullAppointmentsInfo(Long doctorId, Long patientId);
+    List<FullAppointmentsInfoDTO> getAllFullAppointmentsInfo();
 
     void deleteAppointment(Long id);
 
-    List<UserAppointmentDTO> getUsersAppointments(Long userId, Long doctorId, Long departmentId);
+    List<UserAppointmentDTO> getUsersAppointments();
 
     List<LocalDateTime> getAvailableAppointmentTimes(Long doctorId, LocalDate date);
 }

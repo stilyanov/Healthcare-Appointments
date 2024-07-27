@@ -1,6 +1,6 @@
 package bg.softuni.healthcare.doctors.service.impl;
 
-import bg.softuni.healthcare.doctors.model.dto.AppointmentDTO;
+import bg.softuni.healthcare.doctors.model.dto.AddAppointmentDTO;
 import bg.softuni.healthcare.doctors.model.dto.FullAppointmentsInfoDTO;
 import bg.softuni.healthcare.doctors.model.dto.UserAppointmentDTO;
 import bg.softuni.healthcare.doctors.model.entity.Appointment;
@@ -27,7 +27,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final DateTimeFormatter dateTimeFormatter;
 
     @Override
-    public void bookAppointment(AppointmentDTO appointmentDTO) {
+    public void bookAppointment(AddAppointmentDTO appointmentDTO) {
         LocalDateTime appointmentDateTime = appointmentDTO.getDateTime();
         if (!isValidAppointmentTime(appointmentDateTime)) {
             throw new IllegalArgumentException("Appointment must be on a weekday between 08:00 and 17:00.");
@@ -43,21 +43,19 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<AppointmentDTO> getAllAppointments() {
+    public List<AddAppointmentDTO> getAllAppointments() {
         return appointmentRepository.findAll()
                 .stream()
-                .map(appointment -> modelMapper.map(appointment, AppointmentDTO.class))
+                .map(appointment -> modelMapper.map(appointment, AddAppointmentDTO.class))
                 .toList();
     }
 
     @Override
-    public List<FullAppointmentsInfoDTO> getAllFullAppointmentsInfo(Long doctorId, Long patientId) {
+    public List<FullAppointmentsInfoDTO> getAllFullAppointmentsInfo() {
         return appointmentRepository.findAll()
                 .stream()
                 .map(appointment -> {
                     FullAppointmentsInfoDTO fullAppointmentsInfoDTO = modelMapper.map(appointment, FullAppointmentsInfoDTO.class);
-                    fullAppointmentsInfoDTO.setDoctorId(doctorId);
-                    fullAppointmentsInfoDTO.setPatientId(patientId);
                     fullAppointmentsInfoDTO.setTime(appointment.getDateTime().format(dateTimeFormatter));
                     return fullAppointmentsInfoDTO;
                 })
@@ -70,14 +68,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<UserAppointmentDTO> getUsersAppointments(Long userId, Long doctorId, Long departmentId) {
-        return appointmentRepository.findAllByPatientId(userId)
+    public List<UserAppointmentDTO> getUsersAppointments() {
+        return appointmentRepository.findAllByPatientId(1L)
                 .stream()
                 .map(appointment -> {
                     UserAppointmentDTO userAppointmentDTO = modelMapper.map(appointment, UserAppointmentDTO.class);
-                    userAppointmentDTO.setDoctorId(doctorId);
-                    userAppointmentDTO.setDepartmentId(departmentId);
-                    userAppointmentDTO.setTime(appointment.getDateTime().format(dateTimeFormatter));
+                    userAppointmentDTO.setDateTime(appointment.getDateTime().format(dateTimeFormatter));
                     return userAppointmentDTO;
                 })
                 .toList();
