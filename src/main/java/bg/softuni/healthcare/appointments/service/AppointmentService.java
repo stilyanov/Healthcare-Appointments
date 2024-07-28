@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface AppointmentService {
 
-    void bookAppointment(AddAppointmentDTO appointmentDTO);
+
+    UserAppointmentDTO bookAppointment(AddAppointmentDTO appointmentDTO);
 
     List<UserAppointmentDTO> getUserAppointments(Long userId);
 

@@ -17,8 +17,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 @RequiredArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {
@@ -27,7 +25,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final ModelMapper modelMapper;
 
     @Override
-    public void bookAppointment(AddAppointmentDTO appointmentDTO) {
+    public UserAppointmentDTO bookAppointment(AddAppointmentDTO appointmentDTO) {
         LocalDateTime appointmentDateTime = appointmentDTO.getDateTime();
         if (!isValidAppointmentTime(appointmentDateTime)) {
             throw new IllegalArgumentException("Appointment must be on a weekday between 08:00 and 17:00.");
@@ -38,8 +36,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
 
         Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);
-
         appointmentRepository.save(appointment);
+        return modelMapper.map(appointment, UserAppointmentDTO.class);
     }
 
     @Override
