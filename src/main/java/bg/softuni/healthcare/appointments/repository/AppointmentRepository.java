@@ -1,6 +1,6 @@
-package bg.softuni.healthcare.doctors.repository;
+package bg.softuni.healthcare.appointments.repository;
 
-import bg.softuni.healthcare.doctors.model.entity.Appointment;
+import bg.softuni.healthcare.appointments.model.entity.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

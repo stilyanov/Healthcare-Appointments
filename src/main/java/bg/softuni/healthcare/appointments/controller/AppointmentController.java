@@ -1,9 +1,9 @@
-package bg.softuni.healthcare.doctors.controller;
+package bg.softuni.healthcare.appointments.controller;
 
-import bg.softuni.healthcare.doctors.model.dto.AddAppointmentDTO;
-import bg.softuni.healthcare.doctors.model.dto.FullAppointmentsInfoDTO;
-import bg.softuni.healthcare.doctors.model.dto.UserAppointmentDTO;
-import bg.softuni.healthcare.doctors.service.AppointmentService;
+import bg.softuni.healthcare.appointments.model.dto.AddAppointmentDTO;
+import bg.softuni.healthcare.appointments.model.dto.FullAppointmentsInfoDTO;
+import bg.softuni.healthcare.appointments.model.dto.UserAppointmentDTO;
+import bg.softuni.healthcare.appointments.service.AppointmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +17,15 @@ public class AppointmentController {
 
     private final AppointmentService appointmentService;
 
-    @GetMapping()
-    public ResponseEntity<List<AddAppointmentDTO>> getAllAppointments() {
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<UserAppointmentDTO>> userAppointments(@PathVariable Long userId) {
         return ResponseEntity.ok(
-                appointmentService.getAllAppointments()
+                appointmentService.getUserAppointments(userId)
         );
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<FullAppointmentsInfoDTO>> getUsersAppointments() {
+    public ResponseEntity<List<FullAppointmentsInfoDTO>> allUsersAppointments() {
         return ResponseEntity.ok(
                 appointmentService.getAllUsersAppointments()
         );

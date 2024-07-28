@@ -1,4 +1,4 @@
-package bg.softuni.healthcare.doctors.model.enums;
+package bg.softuni.healthcare.appointments.model.enums;
 
 import lombok.Getter;
 

@@ -1,11 +1,9 @@
-package bg.softuni.healthcare.doctors.config;
+package bg.softuni.healthcare.appointments.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
-
-import java.time.format.DateTimeFormatter;
 
 @Configuration
 public class AppConfig {

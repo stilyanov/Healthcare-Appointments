@@ -1,4 +1,4 @@
-package bg.softuni.healthcare.doctors;
+package bg.softuni.healthcare.appointments;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

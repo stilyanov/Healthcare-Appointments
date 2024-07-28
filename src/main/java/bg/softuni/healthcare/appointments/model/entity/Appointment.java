@@ -1,6 +1,6 @@
-package bg.softuni.healthcare.doctors.model.entity;
+package bg.softuni.healthcare.appointments.model.entity;
 
-import bg.softuni.healthcare.doctors.model.enums.DepartmentEnum;
+import bg.softuni.healthcare.appointments.model.enums.DepartmentEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

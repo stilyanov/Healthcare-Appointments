@@ -1,11 +1,11 @@
-package bg.softuni.healthcare.doctors.service.impl;
+package bg.softuni.healthcare.appointments.service.impl;
 
-import bg.softuni.healthcare.doctors.model.dto.AddAppointmentDTO;
-import bg.softuni.healthcare.doctors.model.dto.FullAppointmentsInfoDTO;
-import bg.softuni.healthcare.doctors.model.dto.UserAppointmentDTO;
-import bg.softuni.healthcare.doctors.model.entity.Appointment;
-import bg.softuni.healthcare.doctors.repository.AppointmentRepository;
-import bg.softuni.healthcare.doctors.service.AppointmentService;
+import bg.softuni.healthcare.appointments.model.dto.AddAppointmentDTO;
+import bg.softuni.healthcare.appointments.model.dto.FullAppointmentsInfoDTO;
+import bg.softuni.healthcare.appointments.model.dto.UserAppointmentDTO;
+import bg.softuni.healthcare.appointments.model.entity.Appointment;
+import bg.softuni.healthcare.appointments.repository.AppointmentRepository;
+import bg.softuni.healthcare.appointments.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -14,9 +14,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -42,25 +43,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<AddAppointmentDTO> getAllAppointments() {
-        return appointmentRepository.findAll()
-                .stream()
-                .map(appointment -> {
-                    AddAppointmentDTO addAppointmentDTO = modelMapper.map(appointment, AddAppointmentDTO.class);
-                    addAppointmentDTO.setDateTime(appointment.getDateTime());
-                    return addAppointmentDTO;
-                })
-                .toList();
-    }
-
-    @Override
-    public void deleteAppointment(Long id) {
-        this.appointmentRepository.deleteById(id);
-    }
-
-    @Override
-    public List<UserAppointmentDTO> getUsersAppointments() {
-        return appointmentRepository.findAllByPatientId(1L)
+    public List<UserAppointmentDTO> getUserAppointments(Long userId) {
+        return appointmentRepository.findAllByPatientId(userId)
                 .stream()
                 .map(appointment -> {
                     UserAppointmentDTO userAppointmentDTO = modelMapper.map(appointment, UserAppointmentDTO.class);
@@ -98,6 +82,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         return availableSlots;
     }
+
+    @Override
+    public void deleteAppointment(Long id) {
+        this.appointmentRepository.deleteById(id);
+    }
+
 
     private boolean isAppointmentTimeTaken(Long doctorId, LocalDateTime appointmentDateTime) {
         return appointmentRepository.findByDoctorIdAndDateTime(doctorId, appointmentDateTime).isPresent();

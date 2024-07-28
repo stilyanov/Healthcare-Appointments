@@ -1,6 +1,6 @@
-package bg.softuni.healthcare.doctors.model.dto;
+package bg.softuni.healthcare.appointments.model.dto;
 
-import bg.softuni.healthcare.doctors.model.enums.DepartmentEnum;
+import bg.softuni.healthcare.appointments.model.enums.DepartmentEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

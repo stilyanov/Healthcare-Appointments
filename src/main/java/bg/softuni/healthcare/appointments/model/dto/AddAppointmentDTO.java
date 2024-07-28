@@ -1,6 +1,6 @@
-package bg.softuni.healthcare.doctors.model.dto;
+package bg.softuni.healthcare.appointments.model.dto;
 
-import bg.softuni.healthcare.doctors.model.enums.DepartmentEnum;
+import bg.softuni.healthcare.appointments.model.enums.DepartmentEnum;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
