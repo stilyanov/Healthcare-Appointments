@@ -3,18 +3,16 @@ package bg.softuni.healthcare.appointments.controller;
 import bg.softuni.healthcare.appointments.model.dto.AddAppointmentDTO;
 import bg.softuni.healthcare.appointments.model.dto.FullAppointmentsInfoDTO;
 import bg.softuni.healthcare.appointments.model.dto.UserAppointmentDTO;
-import bg.softuni.healthcare.appointments.model.enums.DepartmentEnum;
 import bg.softuni.healthcare.appointments.service.AppointmentService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/appointments")
@@ -44,10 +42,18 @@ public class AppointmentController {
     }
 
     @PostMapping("/book/{doctorId}")
-    public ResponseEntity<UserAppointmentDTO> bookAppointment(@RequestBody AddAppointmentDTO appointmentDTO,
-                                                              @PathVariable Long doctorId) {
-        appointmentService.bookAppointment(appointmentDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<UserAppointmentDTO> bookAppointment(@Valid @RequestBody AddAppointmentDTO appointmentDTO,
+                                                              @PathVariable Long doctorId,
+                                                              BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            List<String> errors = bindingResult.getAllErrors().stream()
+//                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+//                    .collect(Collectors.toList());
+//            return ResponseEntity.of(Optional.of(errors));
+//        }
+
+        UserAppointmentDTO response = appointmentService.bookAppointment(appointmentDTO);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/delete/{id}")
