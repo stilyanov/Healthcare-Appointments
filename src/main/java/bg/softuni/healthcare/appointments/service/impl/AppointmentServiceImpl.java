@@ -1,6 +1,7 @@
 package bg.softuni.healthcare.appointments.service.impl;
 
 import bg.softuni.healthcare.appointments.model.dto.AddAppointmentDTO;
+import bg.softuni.healthcare.appointments.model.dto.DoctorAppointmentDTO;
 import bg.softuni.healthcare.appointments.model.dto.FullAppointmentsInfoDTO;
 import bg.softuni.healthcare.appointments.model.dto.UserAppointmentDTO;
 import bg.softuni.healthcare.appointments.model.entity.Appointment;
@@ -44,11 +45,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<UserAppointmentDTO> getUserAppointments(Long userId) {
         return appointmentRepository.findAllByPatientId(userId)
                 .stream()
-                .map(appointment -> {
-                    UserAppointmentDTO userAppointmentDTO = modelMapper.map(appointment, UserAppointmentDTO.class);
-                    userAppointmentDTO.setDateTime(String.valueOf(appointment.getDateTime()));
-                    return userAppointmentDTO;
-                })
+                .map(this::mapToUserAppointmentDTO)
                 .toList();
     }
 
@@ -56,11 +53,23 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<FullAppointmentsInfoDTO> getAllUsersAppointments() {
         return appointmentRepository.findAll()
                 .stream()
-                .map(appointment -> {
-                    FullAppointmentsInfoDTO fullAppointmentsInfoDTO = modelMapper.map(appointment, FullAppointmentsInfoDTO.class);
-                    fullAppointmentsInfoDTO.setDateTime(String.valueOf(appointment.getDateTime()));
-                    return fullAppointmentsInfoDTO;
-                })
+                .map(this::mapToFullAppointmentsDTO)
+                .toList();
+    }
+
+    @Override
+    public List<UserAppointmentDTO> getAppointmentsByPatientId(Long patientId) {
+        List<Appointment> appointments = appointmentRepository.findAllByPatientId(patientId);
+        return appointments.stream()
+                .map(this::mapToUserAppointmentDTO)
+                .toList();
+    }
+
+    @Override
+    public List<DoctorAppointmentDTO> getAppointmentsByDoctorId(Long doctorId) {
+        List<Appointment> appointments = appointmentRepository.findAllByDoctorId(doctorId);
+        return appointments.stream()
+                .map(this::mapToDoctorAppointmentDTO)
                 .toList();
     }
 
@@ -105,5 +114,23 @@ public class AppointmentServiceImpl implements AppointmentService {
         LocalTime startTime = LocalTime.of(8, 0); // 08:00
         LocalTime endTime = LocalTime.of(17, 0); // 17:00
         return !time.isBefore(startTime) && time.isBefore(endTime);
+    }
+
+    private UserAppointmentDTO mapToUserAppointmentDTO(Appointment appointment) {
+        UserAppointmentDTO userAppointmentDTO = modelMapper.map(appointment, UserAppointmentDTO.class);
+        userAppointmentDTO.setDateTime(String.valueOf(appointment.getDateTime()));
+        return userAppointmentDTO;
+    }
+
+    private FullAppointmentsInfoDTO mapToFullAppointmentsDTO(Appointment appointment) {
+        FullAppointmentsInfoDTO fullAppointmentsInfoDTO = modelMapper.map(appointment, FullAppointmentsInfoDTO.class);
+        fullAppointmentsInfoDTO.setDateTime(String.valueOf(appointment.getDateTime()));
+        return fullAppointmentsInfoDTO;
+    }
+
+    private DoctorAppointmentDTO mapToDoctorAppointmentDTO(Appointment appointment) {
+        DoctorAppointmentDTO doctorAppointmentDTO = modelMapper.map(appointment, DoctorAppointmentDTO.class);
+        doctorAppointmentDTO.setDateTime(String.valueOf(appointment.getDateTime()));
+        return doctorAppointmentDTO;
     }
 }

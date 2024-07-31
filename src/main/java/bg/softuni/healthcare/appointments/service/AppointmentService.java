@@ -1,6 +1,7 @@
 package bg.softuni.healthcare.appointments.service;
 
 import bg.softuni.healthcare.appointments.model.dto.AddAppointmentDTO;
+import bg.softuni.healthcare.appointments.model.dto.DoctorAppointmentDTO;
 import bg.softuni.healthcare.appointments.model.dto.FullAppointmentsInfoDTO;
 import bg.softuni.healthcare.appointments.model.dto.UserAppointmentDTO;
 
@@ -21,4 +22,7 @@ public interface AppointmentService {
 
     List<FullAppointmentsInfoDTO> getAllUsersAppointments();
 
+    List<UserAppointmentDTO> getAppointmentsByPatientId(Long patientId);
+
+    List<DoctorAppointmentDTO> getAppointmentsByDoctorId(Long doctorId);
 }

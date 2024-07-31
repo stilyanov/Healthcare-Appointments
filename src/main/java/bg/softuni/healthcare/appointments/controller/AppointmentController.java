@@ -1,6 +1,7 @@
 package bg.softuni.healthcare.appointments.controller;
 
 import bg.softuni.healthcare.appointments.model.dto.AddAppointmentDTO;
+import bg.softuni.healthcare.appointments.model.dto.DoctorAppointmentDTO;
 import bg.softuni.healthcare.appointments.model.dto.FullAppointmentsInfoDTO;
 import bg.softuni.healthcare.appointments.model.dto.UserAppointmentDTO;
 import bg.softuni.healthcare.appointments.service.AppointmentService;
@@ -34,6 +35,20 @@ public class AppointmentController {
         );
     }
 
+    @GetMapping("/patient/{patientId}")
+    public ResponseEntity<List<UserAppointmentDTO>> getAppointmentsByPatientId(@PathVariable Long patientId) {
+        return ResponseEntity.ok(
+                appointmentService.getAppointmentsByPatientId(patientId)
+        );
+    }
+
+    @GetMapping("/doctor/{doctorId}")
+    public ResponseEntity<List<DoctorAppointmentDTO>> getAppointmentsByDoctorId(@PathVariable Long doctorId) {
+        return ResponseEntity.ok(
+                appointmentService.getAppointmentsByDoctorId(doctorId)
+        );
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<FullAppointmentsInfoDTO>> allUsersAppointments() {
         return ResponseEntity.ok(
@@ -45,12 +60,9 @@ public class AppointmentController {
     public ResponseEntity<UserAppointmentDTO> bookAppointment(@Valid @RequestBody AddAppointmentDTO appointmentDTO,
                                                               @PathVariable Long doctorId,
                                                               BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            List<String> errors = bindingResult.getAllErrors().stream()
-//                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-//                    .collect(Collectors.toList());
-//            return ResponseEntity.of(Optional.of(errors));
-//        }
+        if (bindingResult.hasErrors()) {
+            throw new IllegalArgumentException("Invalid appointment data.");
+        }
 
         UserAppointmentDTO response = appointmentService.bookAppointment(appointmentDTO);
         return ResponseEntity.ok(response);
