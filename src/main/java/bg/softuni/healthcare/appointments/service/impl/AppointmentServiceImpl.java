@@ -9,6 +9,8 @@ import bg.softuni.healthcare.appointments.repository.AppointmentRepository;
 import bg.softuni.healthcare.appointments.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -77,11 +79,25 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     @Scheduled(cron = "0 0/30 * * * *") // every 30 minutes
     public void removePastAppointments() {
+        Logger logger = LoggerFactory.getLogger(AppointmentServiceImpl.class);
+        logger.info("Starting to remove past appointments.");
+
         List<Appointment> appointments = appointmentRepository.findAll();
         LocalDateTime now = LocalDateTime.now();
-        appointments.stream()
+
+        List<Appointment> pastAppointments = appointments.stream()
                 .filter(appointment -> appointment.getDateTime().isBefore(now))
-                .forEach(appointmentRepository::delete);
+                .toList();
+
+        long countBefore = appointments.size();
+        long countAfter = pastAppointments.size();
+
+        pastAppointments.forEach(appointment -> {
+            logger.info("Removing past appointment with ID: {}", appointment.getId());
+            appointmentRepository.delete(appointment);
+        });
+
+        logger.info("Completed removal of past appointments. Deleted {} out of {} appointments.", countAfter, countBefore);
     }
 
     @Override

@@ -32,6 +32,7 @@ public class Appointment {
     @Column(name = "department", nullable = false)
     private DepartmentEnum department;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String reason;
 
 }
