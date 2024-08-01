@@ -25,4 +25,6 @@ public interface AppointmentService {
     List<UserAppointmentDTO> getAppointmentsByPatientId(Long patientId);
 
     List<DoctorAppointmentDTO> getAppointmentsByDoctorId(Long doctorId);
+
+    void removePastAppointments();
 }

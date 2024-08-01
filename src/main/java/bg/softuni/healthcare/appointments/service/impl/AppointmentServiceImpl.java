@@ -9,6 +9,7 @@ import bg.softuni.healthcare.appointments.repository.AppointmentRepository;
 import bg.softuni.healthcare.appointments.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -71,6 +72,16 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointments.stream()
                 .map(this::mapToDoctorAppointmentDTO)
                 .toList();
+    }
+
+    @Override
+    @Scheduled(cron = "0 0/30 * * * *") // every 30 minutes
+    public void removePastAppointments() {
+        List<Appointment> appointments = appointmentRepository.findAll();
+        LocalDateTime now = LocalDateTime.now();
+        appointments.stream()
+                .filter(appointment -> appointment.getDateTime().isBefore(now))
+                .forEach(appointmentRepository::delete);
     }
 
     @Override
