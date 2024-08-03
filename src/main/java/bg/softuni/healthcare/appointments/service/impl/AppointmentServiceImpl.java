@@ -53,6 +53,13 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public DoctorAppointmentDTO getAppointmentById(Long appointmentId) {
+        return appointmentRepository.findById(appointmentId)
+                .map(this::mapToDoctorAppointmentDTO)
+                .orElseThrow(() -> new IllegalArgumentException("Appointment not found."));
+    }
+
+    @Override
     public List<FullAppointmentsInfoDTO> getAllUsersAppointments() {
         return appointmentRepository.findAll()
                 .stream()
@@ -77,7 +84,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    @Scheduled(cron = "0 0/30 * * * *") // every 30 minutes
+    @Scheduled(cron = "0 0 1 * *") // At 00:00 on day-of-month 1
     public void removePastAppointments() {
         Logger logger = LoggerFactory.getLogger(AppointmentServiceImpl.class);
         logger.info("Starting to remove past appointments.");

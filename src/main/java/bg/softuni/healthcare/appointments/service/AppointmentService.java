@@ -20,6 +20,8 @@ public interface AppointmentService {
 
     void deleteAppointment(Long id);
 
+    DoctorAppointmentDTO getAppointmentById(Long appointmentId);
+
     List<FullAppointmentsInfoDTO> getAllUsersAppointments();
 
     List<UserAppointmentDTO> getAppointmentsByPatientId(Long patientId);

@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DoctorAppointmentDTO {
 
+    private Long id;
     private Long patientId;
     private DepartmentEnum department;
     private String dateTime;

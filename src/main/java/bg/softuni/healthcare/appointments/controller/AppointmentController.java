@@ -28,10 +28,17 @@ public class AppointmentController {
         return ResponseEntity.ok(availableSlots);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<UserAppointmentDTO>> userAppointments(@PathVariable Long userId) {
         return ResponseEntity.ok(
                 appointmentService.getUserAppointments(userId)
+        );
+    }
+
+    @GetMapping("/{appointmentId}")
+    public ResponseEntity<DoctorAppointmentDTO> getAppointmentById(@PathVariable Long appointmentId) {
+        return ResponseEntity.ok(
+                appointmentService.getAppointmentById(appointmentId)
         );
     }
 
