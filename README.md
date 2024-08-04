@@ -24,12 +24,12 @@ The Healthcare-Appointments project provides a RESTful API for handling appointm
 - **Database:** H2 Database (for development), MySQL (for production)
 - **Build Tool:** Gradle
 
-Usage
+## Usage
 
 	1.	The API will be available at http://localhost:8081.
 	2.	Use tools like Postman or curl to interact with the API endpoints.
 
-API Endpoints
+## API Endpoints
 
 	•	GET /appointments: Retrieve all appointments
 	•	GET /appointments/{id}: Retrieve a specific appointment
