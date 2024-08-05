@@ -8,8 +8,6 @@ This repository contains the REST API for managing appointments in the healthcar
 - [Technologies](#technologies)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## About
 The Healthcare-Appointments project provides a RESTful API for handling appointments within the healthcare management system.
@@ -21,28 +19,21 @@ The Healthcare-Appointments project provides a RESTful API for handling appointm
 
 ## Technologies
 - **Backend:** Java (Spring Boot)
-- **Database:** H2 Database (for development), MySQL (for production)
+- **Database:** MySQL (for production)
 - **Build Tool:** Gradle
 
 ## Usage
 
-	1.	The API will be available at http://localhost:8081.
-	2.	Use tools like Postman or curl to interact with the API endpoints.
+1. The API will be available at http://localhost:8081.
+2. Use tools like Postman to interact with the API endpoints.
 
 ## API Endpoints
 
-	•	GET /appointments: Retrieve all appointments
-	•	GET /appointments/{id}: Retrieve a specific appointment
-	•	POST /appointments: Create a new appointment
-	•	PUT /appointments/{id}: Update an existing appointment
-	•	DELETE /appointments/{id}: Delete an appointment
-
-Contributing
-
-Contributions are welcome! Please fork the repository and create a pull request with your changes.
-
-License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-For more information, visit the repository.
+- GET /appointments/book/{doctorId}: Retrieve available appointment times for a specific doctor on a given date.
+- GET /appointments/user/{userId}: Retrieve all appointments for a specific user.
+- GET /appointments/{appointmentId}: Retrieve details of a specific appointment by its ID.
+- GET /appointments/patient/{patientId}: Retrieve all appointments for a specific patient.
+- GET /appointments/doctor/{doctorId}: Retrieve all appointments for a specific doctor.
+- GET /appointments/all: Retrieve all appointments with full information.
+- POST /appointments/book/{doctorId}: Book a new appointment with a doctor.
+- DELETE /appointments/delete/{id}: Delete an appointment by its ID.
