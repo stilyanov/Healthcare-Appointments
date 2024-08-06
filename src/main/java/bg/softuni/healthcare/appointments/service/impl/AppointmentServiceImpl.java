@@ -129,6 +129,17 @@ public class AppointmentServiceImpl implements AppointmentService {
         this.appointmentRepository.deleteById(id);
     }
 
+    @Override
+    public void deleteAppointmentsByDoctorId(Long doctorId) {
+        List<Appointment> appointments = appointmentRepository.findAllByDoctorId(doctorId);
+        appointments.forEach(appointment -> appointmentRepository.deleteById(appointment.getId()));
+    }
+
+    @Override
+    public void deleteAppointmentsByPatientId(Long patientId) {
+        List<Appointment> appointments = appointmentRepository.findAllByPatientId(patientId);
+        appointments.forEach(appointment -> appointmentRepository.deleteById(appointment.getId()));
+    }
 
     private boolean isAppointmentTimeTaken(Long doctorId, LocalDateTime appointmentDateTime) {
         return appointmentRepository.findByDoctorIdAndDateTime(doctorId, appointmentDateTime).isPresent();

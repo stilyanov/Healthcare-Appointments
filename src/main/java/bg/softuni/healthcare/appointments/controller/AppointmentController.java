@@ -79,4 +79,17 @@ public class AppointmentController {
     public void deleteAppointment(@PathVariable Long id) {
         appointmentService.deleteAppointment(id);
     }
+
+    @DeleteMapping("/doctor/{doctorId}")
+    public ResponseEntity<Void> deleteAppointmentsByDoctor(@PathVariable Long doctorId) {
+        appointmentService.deleteAppointmentsByDoctorId(doctorId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/patient/{patientId}")
+    public ResponseEntity<Void> deleteAppointmentsByPatient(@PathVariable Long patientId) {
+        appointmentService.deleteAppointmentsByPatientId(patientId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
